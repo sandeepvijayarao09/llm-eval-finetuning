@@ -1,0 +1,61 @@
+# LLM Evaluation Configuration
+
+# Model settings
+model:
+  name: "meta-llama/Llama-2-7b-hf"
+  device: "cuda"
+  dtype: "float16"  # float16, float32, bfloat16
+  trust_remote_code: true
+
+# Evaluation benchmarks
+benchmarks:
+  - name: "truthful_qa"
+    num_samples: 50
+    description: "Factual question-answering tasks"
+
+  - name: "instruction_following"
+    num_samples: 30
+    description: "Instruction adherence evaluation"
+
+  - name: "commonsense"
+    num_samples: 30
+    description: "Commonsense reasoning tasks"
+
+  - name: "hallucination"
+    num_samples: 20
+    description: "Hallucination detection"
+
+# Inference settings
+inference:
+  batch_size: 8
+  max_length: 512
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  repetition_penalty: 1.0
+
+# Output settings
+output:
+  results_dir: "./results"
+  export_format: "json"  # json, csv, both
+  generate_html_report: true
+  report_path: "./results/report.html"
+
+# Logging
+logging:
+  level: "INFO"
+  log_file: "./results/evaluation.log"
+
+# Evaluation metrics to compute
+metrics:
+  - rouge1_f1
+  - rougeL_f1
+  - bleu
+  - bertscore
+  - instruction_following_score
+  - hallucination_score
+  - factual_accuracy
+
+# Performance benchmarking
+benchmark_inference: true
+profile_latency: true
